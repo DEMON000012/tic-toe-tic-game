@@ -31,8 +31,9 @@ const overlay = document.querySelector('.overlay');
 const btnfloat = document.querySelector('.btn--float');
 const model = document.querySelector('.modal');
 const back = document.querySelector('.btn--back');
-
+let option = Math.trunc(Math.random() * 9) + 1;
 let move = 0;
+let arr = [];
 const winarray = [
   [tick1, tick2, tick3],
   [tick4, tick5, tick6],
@@ -51,55 +52,73 @@ const winarray = [
   [cross1, cross5, cross9],
   [cross3, cross5, cross7],
 ];
-
 const winfun = function () {
   for (pattern of winarray) {
     if (pattern.every(el => !el.classList.contains('hidden'))) {
-      model.classList.remove('hidden');
       overlay.classList.remove('hidden');
+      setTimeout(() => {
+        model.classList.remove('hidden');
+      }, 1000);
       document.querySelector('.text').textContent = `${
-        pattern[0].classList.contains('tick') ? 'player 1' : 'player 2'
+        pattern[0].classList.contains('tick') ? 'player 1' : 'computer'
       }  won the match 😍`;
     } else if (Number(move) === 9) {
-      model.classList.remove('hidden');
       overlay.classList.remove('hidden');
+      model.classList.remove('hidden');
+
       document.querySelector('.text').textContent = 'Match is Draw';
     }
   }
 };
-
-function handleClick(tick, cross, event) {
+const computer = function () {
+  let option = Math.trunc(Math.random() * 9) + 1;
+  if (arr.includes(option)) {
+    console.log(option);
+    computer();
+  } else {
+    let cross = document.querySelector(`.cross--${option}`);
+    cross.classList.remove('hidden');
+    player2.classList.remove('player--active');
+    player1.classList.add('player--active');
+    move++;
+    winfun();
+    arr.push(option);
+    console.log(move);
+  }
+};
+function handleClick(tick, event) {
   if (player1.classList.contains('player--active')) {
+    let alt = tick.getAttribute('alt');
+    let index = alt.length - 1;
+    let value = alt[index];
+    arr.push(Number(value));
     tick.classList.remove('hidden');
     player1.classList.remove('player--active');
     player2.classList.add('player--active');
     move++;
     winfun();
     console.log(move);
-  } else if (player2.classList.contains('player--active')) {
-    cross.classList.remove('hidden');
-    player2.classList.remove('player--active');
-    player1.classList.add('player--active');
-    move++;
-    winfun();
-    console.log(move);
+  }
+  if (player2.classList.contains('player--active')) {
+    computer();
   }
 }
-function createClickHandler(tick, cross) {
+function click(tick) {
   return function (event) {
-    handleClick(tick, cross, event);
+    handleClick(tick, event);
     event.currentTarget.removeEventListener('click', arguments.callee);
   };
 }
-grid1.addEventListener('click', createClickHandler(tick1, cross1));
-grid2.addEventListener('click', createClickHandler(tick2, cross2));
-grid3.addEventListener('click', createClickHandler(tick3, cross3));
-grid4.addEventListener('click', createClickHandler(tick4, cross4));
-grid5.addEventListener('click', createClickHandler(tick5, cross5));
-grid6.addEventListener('click', createClickHandler(tick6, cross6));
-grid7.addEventListener('click', createClickHandler(tick7, cross7));
-grid8.addEventListener('click', createClickHandler(tick8, cross8));
-grid9.addEventListener('click', createClickHandler(tick9, cross9));
+
+grid1.addEventListener('click', click(tick1));
+grid2.addEventListener('click', click(tick2, cross2));
+grid3.addEventListener('click', click(tick3, cross3));
+grid4.addEventListener('click', click(tick4, cross4));
+grid5.addEventListener('click', click(tick5, cross5));
+grid6.addEventListener('click', click(tick6, cross6));
+grid7.addEventListener('click', click(tick7, cross7));
+grid8.addEventListener('click', click(tick8, cross8));
+grid9.addEventListener('click', click(tick9, cross9));
 
 btnfloat.addEventListener('click', function (e) {
   e.preventDefault();
@@ -107,12 +126,6 @@ btnfloat.addEventListener('click', function (e) {
   model.classList.add('hidden');
   overlay.classList.add('hidden');
 });
-overlay.addEventListener('click', function () {
-  location.reload();
-  model.classList.add('hidden');
-  overlay.classList.add('hidden');
-});
-
 back.addEventListener('click', function () {
   window.location.href = 'home.html';
 });

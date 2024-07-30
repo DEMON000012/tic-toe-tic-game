@@ -25,7 +25,7 @@ body {
 
 .player {
   flex: 50%;
-  margin-top: 2rem;
+
   padding: rem;
   display: flex;
   flex-direction: row;
@@ -34,8 +34,8 @@ body {
   background-color: rgba(255, 255, 255, 0.4);
 }
 .game {
-  margin-top: 2rem;
-  position: relative;
+  margin-top: 0.7rem;
+
   width: 60rem;
   height: 60rem;
   background-color: rgba(255, 255, 255, 0.35);
@@ -46,6 +46,33 @@ body {
   overflow: hidden;
   /* display: flex; */
   margin-left: 23rem;
+  display: flex;
+}
+.playerhome {
+  display: grid;
+  margin-top: 30rem;
+  padding: rem;
+  height: 30rem;
+  width: 40rem;
+  justify-items: center;
+
+  background-color: rgba(255, 255, 255, 0.4);
+}
+.multiplayer {
+  padding-top: 4rem;
+  display: grid;
+  width: 40rem;
+  justify-items: center;
+  cursor: pointer;
+  background-color: rgba(186, 178, 182, 0.4);
+}
+.vscomputer {
+  padding-top: 3rem;
+  display: grid;
+  width: 40rem;
+  justify-items: center;
+  background-color: rgba(154, 98, 126, 0.4);
+  cursor: pointer;
 }
 .grid-holder {
   --g: 0.5rem; /* the gap */
@@ -84,14 +111,14 @@ body {
 }
 
 .heading {
-  height: 10rem;
-  width: 10rem;
+  height: 6rem;
+  width: 6rem;
 }
 
 /* ELEMENTS */
 .name {
   position: relative;
-  font-size: 4rem;
+  font-size: 3rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   word-spacing: 2px;
@@ -179,6 +206,29 @@ body {
   cursor: pointer;
   font-weight: 400;
   transition: all 0.2s;
+
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+
+  padding: 0.7rem 2.5rem;
+  border-radius: 50rem;
+  box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1);
+}
+
+.btn--back {
+  left: 50%;
+  transform: translateX(-50%);
+  color: #444;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 400;
+  transition: all 0.2s;
+  height: 5rem;
 
   background-color: white;
   background-color: rgba(255, 255, 255, 0.6);
